@@ -1,9 +1,11 @@
 import React,{useState} from 'react'
 import CardForm from '../CardStructure/Components/CardForm'
-const baseApiUrl = 'https://fastr-api-prototype-server.vercel.app/api';
+const baseApiUrl = 'https://fastr-api-prototype-server.vercel.app/api'
+// const baseApiUrl = 'http://localhost:3000/api'
 
 const MultiCard = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const [transactionStatusArray, setTransactionStatusArray] = useState(null);
     async function makeSamePayment() {
         // parrallel 2 api calls for single payment
@@ -26,9 +28,10 @@ const MultiCard = () => {
           
         );
         console.log(responses);
+        const transactionStatus = await checkStatusandTakeAction(responses);
         // set the transaction status in the state
         setOpenModal(true);
-         const transactionStatus = await checkStatusandTakeAction(responses);
+        setShowForm(true);
         setTransactionStatusArray(transactionStatus.status);
       }
 
@@ -106,15 +109,20 @@ const MultiCard = () => {
       const closeModal = () => {
         setTransactionStatusArray(null);
         setOpenModal(false);
+        setShowForm(false);
       }
 
   return (
     <div className='multi-card-block'>
+    {!showForm ?
+    <>
     <div className='multi-card'>
       <CardForm />
       <CardForm />
     </div>
     <button className='btn btn-primary' onClick={makeSamePayment}> Pay Now</button>
+    </>:
+    <>
     {openModal && (
         <div className="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 max-w-md mx-auto rounded-md text-center">
@@ -122,14 +130,16 @@ const MultiCard = () => {
             <p className="mb-4">{transactionStatusArray && 
               transactionStatusArray.map((status, index) => (
                 <>
-                <p key={index}>{status.payment_method} Payment with PaymentID {status.paymentIntentId} : {status.status} </p>
+                <p key={index}>{status.payment_method} Payment with PaymentID : <strong>{status.paymentIntentId} : {status.status} </strong></p>
                 </>
               ))
             }</p>
-            <button onClick={closeModal} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Close</button>
+            <button onClick={closeModal} className="text-black bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Close</button>
           </div>
         </div>
       )}
+      </>
+    }
   </div>
   )
 }

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-const baseApiUrl = 'https://fastr-api-prototype-server.vercel.app/api';
+const baseApiUrl = 'https://fastr-api-prototype-server.vercel.app/api'
+//const baseApiUrl = 'http://localhost:3000/api'
 
 const UPI = () =>{
+  const [showform, setShowform] = useState(false);
   const [upi_amount, setUpi_amount] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [transactionStatusArray, setTransactionStatusArray] = useState(null);
@@ -45,34 +47,33 @@ const UPI = () =>{
       const UPIStatusStructured = {payment_method : "UPI"  , paymentIntentId: UPiStatus.reference, status: UPiStatus.success ? 'succeeded' : 'failed'};
       setTransactionStatusArray([UPIStatusStructured]);
       setOpenModal(true);
+      setShowform(true);
     } catch (error) {
       console.error("Error:", error);
-    }
-
-    
-    
+    }  
   }
     
-  
-
   
   const closeModal = () => {
     setTransactionStatusArray(null);
     setOpenModal(false);
+    setShowform(false);
   }
 
   
   return (
     <div className="upi-only-block">
+    {!showform?
+    <>
       <div className="upi-only-data">
         <h5>
-          Name : <strong>Fastr</strong>
+          Name : <strong>Fastr Pay</strong>
         </h5>
         <h5>
-          Email : <strong>fastr@gmail.com</strong>
+          Email : <strong>fastrpayments@gmail.com </strong>
         </h5>
         <h5>
-          Mob No. : <strong>9555436576</strong>
+          Mob No. : <strong> 7411830194</strong>
         </h5>
         <div className="input-group mb-3">
           <div className="input-group-prepend">
@@ -98,6 +99,7 @@ const UPI = () =>{
       >
         Pay Now
       </button>
+      </>:<>
       {openModal && (
         <div className="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 max-w-md mx-auto rounded-md text-center">
@@ -109,11 +111,12 @@ const UPI = () =>{
                 </>
               ))
             }</p>
-            <button onClick={closeModal} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Close</button>
+            <button onClick={closeModal} className="text-black bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 my-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Close</button>
           </div>
         </div>
       )}
-
+      </>}
+     
     </div>
   );
 };

@@ -1,64 +1,69 @@
-footer
-{
+footer {
     width: 100%;
-    background:#08162c ;
-    position:relative;
+    background: #08162c;
+    position: relative;
     bottom: 0;
     color: white;
     line-height: 15px;
     font-size: 13px;
-       
-}
-
-.row
-{
+  }
+  
+  .row {
     width: 85%;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-}
-
-.col
-{
+  }
+  
+  .col {
     flex-basis: 25%;
     padding: 8px;
-}
-
-.col>img
-{
-    margin-bottom: 30px;
+    margin-left: 20px;
+  }
+  
+  .col > img {
+    margin-bottom: 20px;
     border-top-left-radius: 0.7rem;
-}
-
-.col h4{
+  }
+  
+  .col h4 {
     width: fit-content;
     margin-bottom: 40px;
     position: relative;
     color: brown;
-}
-
-.email-id
-{
+  }
+  .col > p {
+    font-size: 15px;
+    line-height: 1.2;
+  }
+  
+  
+  .email-id {
     width: fit-content;
     border-bottom: 1px solid #ccc;
     margin: 20px 0;
-}
-
-.col >p> a{
+  }
+  
+  .col > p > a {
     color: white;
-}
-
-hr{
+  }
+  
+  hr {
     background: white;
-    color:white;
+    color: white;
     height: 1px;
-}
-
-.copyright
-{
+  }
+  
+  .col > form > input {
+    padding: 10px;
+    border-radius: 0.3rem;
+  }
+  
+  .copyright {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+    font-size: 15px;
+  }
